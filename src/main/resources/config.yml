@@ -1,47 +1,40 @@
-#MySQL配置
+# MySQL
 storage:
-  #账户名(建议不使用root账号)
   username: bilibilireward
-  #密码
   password: passwd
-  #MySQL地址
   host: localhost
-  #MySQL端口
   port: 3306
-  #数据库名称
   database: "bilibilireward"
-  #不建议修改此数值 保持默认即可
   table: "bilibilireward"
-  #MySQL启用SSL加密传输时需要开启 否则请禁用
   useSSL: false
-#储存方式 mysql / yaml (切换储存方式需要重启服务器生效)
+# 储存方式
 database: "yaml"
-#是否绑定该用户的所有视频
+# 绑定该用户的所有视频
 bind_user: true
-#UID (仅绑定用户和关注奖励可用)
+# UID (仅绑定用户和关注奖励可用)
 uid: 012345
-#视频AID
+# 视频AID
 bind:
   - 0123456
-#检查状态时间 (单位: 分钟)
+# 检查状态时间 (单位: 分钟)
 check: 10
-#命令头部
-header: "&b&lBilibili三连奖励领取系统"
-#是否按投币数量执行命令
+# 命令头部
+header: "&f[&b宣传系统&f]"
+# 是否按投币数量执行命令
 with_amount: true
-#点赞奖励
+# 点赞奖励
 like:
   - "tellraw %player% [\"您给视频 %title% 点了一个赞\"]"
   - "give %player% diamond 1"
-#投币奖励
+# 投币奖励
 coin:
   - "tellraw %player% [\"您给视频 %title% 投了%coin%个币\"]"
   - "give %player% diamond 1"
-#收藏奖励
+# 收藏奖励
 folder:
   - "tellraw %player% [\"您收藏了视频 %title%\"]"
   - "give %player% diamond 1"
-#关注奖励
+# 关注奖励
 following:
   - "tellraw %player% [\"您关注了UP主\"]"
   - "give %player% diamond 1"
