@@ -14,12 +14,12 @@ import static flyproject.bili.Color.color;
 public class BiliCommand implements CommandExecutor {
     private static void sendHelp(CommandSender sender) {
         sender.sendMessage(color(BilibiliReward.instance.getConfig().getString("header")));
-        sender.sendMessage(color("&e/breward bind <b站id> ———— 绑定您的b站用户id"));
+        sender.sendMessage(color("&f/breward bind <b站id> &7———— &b绑定您的B站用户id"));
         if (sender.isOp()) {
-            sender.sendMessage(color("&e/breward force ———— 强制刷新"));
-            sender.sendMessage(color("&e/breward reload ———— 重载配置"));
-            sender.sendMessage(color("&e/breward set <玩家名称> <b站id> ———— 设置玩家绑定的B站用户"));
-            sender.sendMessage(color("&e/breward look <玩家名称> ———— 查看玩家绑定的B站用户"));
+            sender.sendMessage(color("&f/breward force &7———— &b强制刷新"));
+            sender.sendMessage(color("&f/breward reload &7———— &b重载配置"));
+            sender.sendMessage(color("&f/breward set <玩家名称> <b站id> &7———— &b设置玩家绑定的B站用户"));
+            sender.sendMessage(color("&f/breward look <玩家名称> &7———— &b查看玩家绑定的B站用户"));
         }
     }
 
@@ -35,10 +35,10 @@ public class BiliCommand implements CommandExecutor {
                             throw new RuntimeException(e);
                         }
                     });
-                    sender.sendMessage(color("&e&l!已强制更新数据!"));
+                    sender.sendMessage(color("&c!已强制更新数据!"));
                 } else if (args[0].equals("reload")) {
                     BilibiliReward.instance.reloadConfig();
-                    sender.sendMessage(color("&a&l配置已重载"));
+                    sender.sendMessage(color("&f配置已重载"));
                 } else {
                     sendHelp(sender);
                 }
@@ -55,28 +55,28 @@ public class BiliCommand implements CommandExecutor {
                 String uid = args[1];
                 if (MySQL.ENABLED) {
                     if (MySQL.getData(player.getUniqueId().toString()) != null) {
-                        player.sendMessage(color("&c&l您的账号已绑定了B站用户 请勿重复绑定!"));
+                        player.sendMessage(color("&c您的账号已绑定了B站用户 请勿重复绑定!"));
                         return false;
                     } else {
                         if (RewardUtil.hasBinded(uid)){
-                            player.sendMessage(color("&c&l该UID已绑定过其它玩家"));
+                            player.sendMessage(color("&c该UID已绑定过其它玩家"));
                             return false;
                         }
                         MySQL.savePlayer(new Gson().toJson(DataUtil.initJson(uid)), player.getUniqueId().toString());
-                        player.sendMessage(color("&a&lB站账号绑定成功!"));
+                        player.sendMessage(color("&fB站账号绑定成功!"));
                         return true;
                     }
                 } else {
                     if (YAML.hasData(player.getUniqueId())) {
-                        player.sendMessage(color("&c&l您的账号已绑定了B站用户 请勿重复绑定!"));
+                        player.sendMessage(color("&c您的账号已绑定了B站用户 请勿重复绑定!"));
                         return false;
                     } else {
                         if (RewardUtil.hasBinded(uid)){
-                            player.sendMessage(color("&c&l该UID已绑定过其它玩家"));
+                            player.sendMessage(color("&c该UID已绑定过其它玩家"));
                             return false;
                         }
                         YAML.setData(player.getUniqueId(), new Gson().toJson(DataUtil.initJson(uid)));
-                        player.sendMessage(color("&a&lB站账号绑定成功!"));
+                        player.sendMessage(color("&fB站账号绑定成功!"));
                         return true;
                     }
                 }
@@ -93,7 +93,7 @@ public class BiliCommand implements CommandExecutor {
                     sender.sendMessage(color("&c该玩家未绑定B站用户"));
                     return false;
                 }
-                sender.sendMessage(color("&a该玩家绑定的B站用户为: " + DataUtil.getUID(new JsonParser().parse(uid).getAsJsonObject())));
+                sender.sendMessage(color("&f该玩家绑定的B站用户为: " + DataUtil.getUID(new JsonParser().parse(uid).getAsJsonObject())));
             } else {
                 sendHelp(sender);
             }
@@ -104,11 +104,11 @@ public class BiliCommand implements CommandExecutor {
                 OfflinePlayer player = Bukkit.getOfflinePlayer(name);
                 if (MySQL.ENABLED) {
                     MySQL.savePlayer(new Gson().toJson(DataUtil.initJson(uid)), player.getUniqueId().toString());
-                    sender.sendMessage(color("&a&lB站账号设置成功!"));
+                    sender.sendMessage(color("&fB站账号设置成功!"));
                     return true;
                 } else {
                     YAML.setData(player.getUniqueId(), new Gson().toJson(DataUtil.initJson(uid)));
-                    sender.sendMessage(color("&a&lB站账号设置成功!"));
+                    sender.sendMessage(color("&fB站账号设置成功!"));
                     return true;
                 }
             } else {
